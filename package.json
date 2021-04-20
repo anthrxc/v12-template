@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/aanthr0/discordjs-template-bot/issues"
   },
-  "homepage": "https://github.com/aanthr0/discordjs-template-bot#readme"
+  "homepage": "https://github.com/aanthr0/discordjs-template-bot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
 }
