@@ -3,5 +3,5 @@
 A template Discord bot made using the discord.js library.
 Uses an advanced command handler, comes with basic developer commands and a command template.
 
-# Setup
+## Setup
 *Coming soon!*
