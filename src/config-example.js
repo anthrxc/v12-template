@@ -1,17 +1,5 @@
 module.exports = {
     owners: ["ALL", "OWNER", "IDs", "HERE"],
-    database: {
-        URI: "DATABASE-CONNECTION-URI-HERE"
-        /*
-         * You can also provide the username
-         * and password for the database login
-         * if you don't already do that
-         * in the URI connection string.
-         *
-         * If you won't use a database,
-         * delete this field.
-         */    
-    },
     token: "BOT-TOKEN-HERE",
     color: {
         positive: "GREEN", // #2ECC71
