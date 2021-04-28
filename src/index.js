@@ -5,6 +5,6 @@ client.config = require("./config.js");
 client.commands = new Collection();
 client.aliases = new Collection();
 
-
+require("./handlers/command.js")(client);
 
 client.login(client.config.token)
