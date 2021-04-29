@@ -5,8 +5,8 @@ module.exports = async(client, message) => {
     const { guild, channel, author, member, content, mentions } = message;    // ^^ except from the message variable
     
     const args = content.slice(prefix.length).trim().split(/ +/g); // Remove the prefix from the args, remove whitespace surrounding the string, and split it on every space.
-    const cmd = args.shift().toLowerCase() // Takes the first element of the args array and converts it to lower case so commands aren't case sensitive, allowing for capitalization mistakes
-
+    const cmd = args.shift().toLowerCase() // Takes the first element of the args array and converts it to lower case so commands aren't case sensitive, allowing for capitalization mistakeent, message, args.join(" "
+    
     let command; // undefined variable (variable with no value)
 
     if(mentions.users.get(client.user.id)) {
