@@ -1,6 +1,7 @@
 module.exports = {
     owners: ["ALL", "OWNER", "IDs", "HERE"],
     token: "BOT-TOKEN-HERE",
+    prefix: "PREFIX-HERE",
     color: {
         positive: "GREEN", // #2ECC71
         negative: "RED" // #E74C3C
