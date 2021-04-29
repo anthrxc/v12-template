@@ -13,7 +13,7 @@ module.exports = async(client, message) => {
         channel.send(
             new MessageEmbed()
             .setColor(color.positive)
-            .setAuthor(author.tag, author.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+            .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
             .setTitle("Hello! :smile:")
             .setDescription(`This is a discord.js template bot made by [aanthr0](https://github.com/aanthr0 "GitHub").\nTo display the bot's commands, type \`${prefix}help\`.`)
             .setFooter(footer)
@@ -33,7 +33,7 @@ module.exports = async(client, message) => {
         channel.send(
             new MessageEmbed()
             .setColor(color.negative)
-            .setAuthor(author.tag, author.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+            .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
             .setTitle(`${emoji.negative} Error!`)
             .addField("Invalid permissions", "To run this command, you need to be a bot owner!")
             .setFooter(footer)
@@ -46,7 +46,7 @@ module.exports = async(client, message) => {
                 channel.send(
                     new MessageEmbed()
                     .setColor(color.negative)
-                    .setAuthor(author.tag, author.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+                    .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
                     .setTitle(`${emoji.negative} Error!`)
                     .addField("Invalid permissions", `You need to have the \`${perm}\` permission to run this command!`)
                     .setFooter(footer)
