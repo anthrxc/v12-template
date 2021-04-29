@@ -9,12 +9,11 @@ module.exports = (client) => {
             if(err) throw err;
             
             subDirs.forEach(subDir => {
-                dir = `${dir}${sep}${subDir}`
+                dir = `${dir}${sep}${subDir}${sep}` // change the directory variable to contain the current directory
                 const commands = readdirSync(`${dir}`).filter(f => f.endsWith(".js")); // Filter the commands variable so it only includes files that end with ".js"
                 
                 for(const command of commands) {
-                    dir = `${dir}${sep}${command}`
-                    const cmd = require(`${dir}/${subDir}/${command}`); // Require the command file
+                    const cmd = require(`${dir}${command}`); // Require the command file
 
                     if(cmd.help) { // Check if the command file exports a help object
                         if(!cmd.help.name) throw new TypeError(`Command at ${dir} does not export a name value.`);                                                               // These lines simply check

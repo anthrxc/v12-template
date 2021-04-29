@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = async(client, message) => {
     const { owners, prefix, color, emoji, footer } = client.config;   // Destructure the variables inside {} from the client.config variable
-    const { guild, channel, author, content, mentions } = message;    // ^^ except from the message variable
+    const { guild, channel, author, member, content, mentions } = message;    // ^^ except from the message variable
     
     const args = content.slice(prefix.length).trim().split(/ +/g); // Remove the prefix from the args, remove whitespace surrounding the string, and split it on every space.
     const cmd = args.shift().toLowerCase() // Takes the first element of the args array and converts it to lower case so commands aren't case sensitive, allowing for capitalization mistakes
@@ -40,7 +40,7 @@ module.exports = async(client, message) => {
         );
         return; // don't continue with the rest of the code
     }
-    if(requiredPerms.length) { // if there are required permissions
+    if(requiredPerms && requiredPerms.length) { // if there are required permissions
         for(perm of command.help.requiredPerms) { // loop through the permissions
             if(!member.hasPermission(perm)) { // If the member doesn't have any of the required permissions, send an error
                 channel.send(
