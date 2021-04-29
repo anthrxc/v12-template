@@ -1,8 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = async(client, message) => {
-    const { guild, channel, author, content, mentions } = message;    // Destructure the variables inside {} from the message variable (same as message.VARIABLE)
-    const { owners, prefix, color, emoji, footer } = client.config;   // ^^ except from the client.config variable (same as client.config.VARIABLE)
+    const { owners, prefix, color, emoji, footer } = client.config;   // Destructure the variables inside {} from the client.config variable
+    const { guild, channel, author, content, mentions } = message;    // ^^ except from the message variable
     
     const args = content.slice(prefix.length).trim().split(/ +/g); // Remove the prefix from the args, remove whitespace surrounding the string, and split it on every space.
     const cmd = args.shift().toLowerCase() // Takes the first element of the args array and converts it to lower case so commands aren't case sensitive, allowing for capitalization mistakes
