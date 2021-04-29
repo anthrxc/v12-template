@@ -35,7 +35,7 @@ module.exports = async(client, message) => {
             .setColor(color.negative)
             .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
             .setTitle(`${emoji.negative} Error!`)
-            .addField("Invalid permissions", "To run this command, you need to be a bot owner!")
+            .addField("Invalid Permissions", "To run this command, you need to be a bot owner!")
             .setFooter(footer)
         );
         return; // don't continue with the rest of the code
