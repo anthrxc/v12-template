@@ -23,8 +23,7 @@ module.exports = (client) => {
                         if(!typeof cmd.help.description == "string") throw new TypeError(`Command at ${dir} exports an invalid description value, it can only be a string.`);    // requires to display the command help
                                                                                                                                                                                  // and if not, it throws an error.
                         if(client.commands.get(cmd.help.name)) throw new TypeError(`Command at ${dir} exports the same name value as another command.`);
-                        client.commands.set(cmd.help.name, cmd); // Add the command to the collection of commands defined at index.js:5:1
-
+                        
                         if(cmd.help.aliases) {
                             if(typeof cmd.help.aliases == "string") cmd.help.aliases = [cmd.help.aliases] // If the exported alias is a string, convert it to an array with the only element being that string
                             else if(typeof cmd.help.aliases == "object") {
@@ -37,6 +36,7 @@ module.exports = (client) => {
                         };
                         if(cmd.help.ownerOnly == true && cmd.help.requiredPerms) throw new TypeError(`Command at ${dir} has a setting conflict: ownerOnly and requiredPerms cannot be used together.`); // Owners already have full permission over the bot, if a command is "ownerOnly", it shouldn't require any additional permissions
                         if(!typeof cmd.help.ownerOnly == "boolean") throw new TypeError(`Command at ${dir} uses an invalid value for the ownerOnly setting.`); // the ownerOnly setting can only be a boolean -- true or false
+                        if(!cmd.help.ownerOnly) cmd.help.ownerOnly = false;
                         if(cmd.help.requiredPerms) {
                             if(typeof cmd.help.requiredPerms == "string") cmd.help.requiredPerms = [cmd.help.requiredPerms] // read line 29 -- instead of aliases, this is done to required permissions
                             else if(typeof cmd.help.requiredPerms == "object") {
@@ -79,6 +79,8 @@ module.exports = (client) => {
                             }
                             else throw new TypeError(`Command at ${dir} exports an invalid requiredPerms value. Value must be a string or object.`); // read line 36 -- instead of aliases, this is done to required permissions
                         };             
+                        client.commands.set(cmd.help.name, cmd); // Add the command to the collection of commands defined at index.js:5:1
+                        console.log(`Loaded command "${cmd.help.name}"`);
                     }
                     else throw new TypeError(`Command at ${dir} does not export a help object.`); // Throw an error if there is no help object in a command
                 }
@@ -87,8 +89,5 @@ module.exports = (client) => {
     }
     catch(e) {
         throw e // If an error is encountered, throw it
-    }
-    finally {
-        console.log(`Loaded all commands!`);
     }
 }
