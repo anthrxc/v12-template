@@ -21,7 +21,7 @@ module.exports.run = async(client, message, args) => {
 
 /* 
  * !!! Before granting users BOT OWNER permissions and even USING the command, !!!
- * !!! read this: https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/examples/making-an-eval-command.md !!!,
+ * !!! read this: https://github.com/AnIdiotsGuide/discordjs-bot-guide/blob/master/examples/making-an-eval-command.md#but-eval-is-dangerous !!!,
  * !!! THE WHOLE THING. ANY DAMAGE YOU DO TO YOUR COMPUTER OR HOSTING SERVICE WHILE USING THIS COMMAND IS ENTIRELY YOUR FAULT. !!!
  * !!! I DO NOT TAKE ANY RESPONSIBILITY FOR WHAT HAPPENS WHEN YOU USE THIS COMMAND !!!
  * !!! YOU'VE BEEN WARNED !!!
@@ -29,7 +29,10 @@ module.exports.run = async(client, message, args) => {
 
 module.exports.help = {
     name: "eval",
-    description: "Executes JavaScript code\nBecause of the nature of the command, it is limited to bot owners.",
+    description: "Executes JavaScript code. Because of the nature of the command, it is limited to bot owners.",
     aliases: "evaluate",
-    ownerOnly: true
+    ownerOnly: true,
+    args: "<valid JavaScript code>",
+    minArgs: 1,
+    maxArgs: null
 };
