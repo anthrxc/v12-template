@@ -9,11 +9,11 @@ module.exports = (client) => {
             if(err) throw err;
             
             subDirs.forEach(subDir => {
-                dir = `${process.cwd()}/src/commands/${subDir}/`
+                dir = `${process.cwd()}${sep}src${sep}commands${sep}${subDir}`
                 const commands = readdirSync(`${dir}`).filter(f => f.endsWith(".js")); // Filter the commands variable so it only includes files that end with ".js"
                 
                 for(const command of commands) {
-                    dir = `${dir}${sep}${subDir}${sep}`;
+                    dir = `${dir}${sep}${command}`
                     const cmd = require(`${process.cwd()}/src/commands/${subDir}/${command}`); // Require the command file
 
                     if(cmd.help) { // Check if the command file exports a help object
@@ -78,7 +78,20 @@ module.exports = (client) => {
                                 });
                             }
                             else throw new TypeError(`Command at ${dir} exports an invalid requiredPerms value. Value must be a string or object.`); // read line 36 -- instead of aliases, this is done to required permissions
-                        };             
+                        };
+                        if(!cmd.help.usage) throw new TypeError(`Command at ${dir} does not export a usage value.`);
+                        if(!typeof cmd.help.usage == "string") throw new TypeError(`Command at ${dir} exports an invalid usage value.`);
+                        if(!typeof cmd.help.minArgs == "number") throw new TypeError(`Command at ${dir} exports an invalid minArgs value.`);
+                        if(!typeof cmd.help.maxArgs == "number") throw new TypeError(`Command at ${dir} exports an invalid maxArgs value.`);
+                        
+                        if(!cmd.help.minArgs) cmd.help.minArgs = 0;
+                        if(!cmd.help.maxArgs) cmd.help.maxArgs = -1
+                        
+                        if(cmd.help.minArgs > cmd.help.maxArgs) {
+                            if(cmd.help.maxArgs == -1) return;
+                            else throw new TypeError(`Command at ${dir} minimally requires more arguments than maximum arguments allowed!`);
+                        }
+                        
                         client.commands.set(cmd.help.name, cmd); // Add the command to the collection of commands defined at index.js:5:1
                         console.log(`Loaded command "${cmd.help.name}"`);
                     }

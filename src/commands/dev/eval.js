@@ -32,7 +32,7 @@ module.exports.help = {
     description: "Executes JavaScript code. Because of the nature of the command, it is limited to bot owners.",
     aliases: "evaluate",
     ownerOnly: true,
-    args: "<valid JavaScript code>",
+    usage: "<valid JavaScript code>",
     minArgs: 1,
-    maxArgs: null
+    maxArgs: -1
 };

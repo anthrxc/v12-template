@@ -1,6 +1,6 @@
 {
   "name": "discordjs-template-bot",
-  "version": "1.5.8",
+  "version": "1.6.0",
   "description": "A template Discord bot made using the discord.js library.",
   "main": "src/index.js",
   "scripts": {
