@@ -18,7 +18,7 @@ module.exports = async(client, message) => {
             .setDescription(`This is a discord.js template bot made by [aanthr0](https://github.com/aanthr0 "GitHub").\nTo display the bot's commands, type \`${prefix}help\`.`)
             .setFooter(footer)
         );
-        return;
+        return; // don't continue with the rest of the code
     };
 
     if(!content.startsWith(prefix) || !guild || !cmd) return; // If the message content doesn't start with a prefix OR has no guild OR there is no command, ignore the message.
@@ -27,7 +27,7 @@ module.exports = async(client, message) => {
     if(client.commands.has(cmd)) command = client.commands.get(cmd); // If the command exists, put that command inside the command variable (defined ln10 col5)
     else if(client.aliases.has(cmd)) command = client.commands.get(client.aliases.get(cmd)) // If the command doesn't exist, check if it's an alias. If it is, put it inside the command variable.
 
-    const { ownerOnly, requiredPerms } = command.help // read line 4
+    const { ownerOnly, requiredPerms } = command.help
 
     if(ownerOnly == true && !owners.includes(author.id)) {
         channel.send(
