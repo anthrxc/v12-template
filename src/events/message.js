@@ -69,24 +69,21 @@ module.exports = async(client, message) => {
             .setColor(color.negative)
             .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
             .setTitle(`${emoji.negative} Error!`)
-            .addField("Not Enough Arguments!", `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`)
+            .addField("Not Enough Arguments!", `${reqArgs()}\n*Usage: ${prefix}${name} ${usage}*`)
             .setFooter(footer)
         );
         return; // don't continue with the rest of the code
     }
-    if(maxArgs) {
-        if(maxArgs == -1) return; // If the maximum number of arguments is -1 (unlimited), return
-        else {
-            channel.send(
-                new MessageEmbed()
-                .setColor(color.negative)
-                .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
-                .setTitle(`${emoji.negative} Error!`)
-                .addField("Too Many Arguments!", `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`)
-                .setFooter(footer)
-            );
-            return; // don't continue with the rest of the code
-        };
+    if(maxArgs && maxArgs !== 1) {
+        channel.send(
+            new MessageEmbed()
+            .setColor(color.negative)
+            .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
+            .setTitle(`${emoji.negative} Error!`)
+            .addField("Too Many Arguments!", `${reqArgs()}\n*Usage: ${prefix}${name} ${usage}*`)
+            .setFooter(footer)
+        );
+        return; // don't continue with the rest of the code
     };
 
     if(command) command.run(client, message, args); // If the command exists, run it

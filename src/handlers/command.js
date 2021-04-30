@@ -79,19 +79,16 @@ module.exports = (client) => {
                             }
                             else throw new TypeError(`Command at ${dir} exports an invalid requiredPerms value. Value must be a string or object.`); // read line 36 -- instead of aliases, this is done to required permissions
                         };
-                        if(!cmd.help.usage) throw new TypeError(`Command at ${dir} does not export a usage value.`);
                         if(!typeof cmd.help.usage == "string") throw new TypeError(`Command at ${dir} exports an invalid usage value.`);
                         if(!typeof cmd.help.minArgs == "number") throw new TypeError(`Command at ${dir} exports an invalid minArgs value.`);
                         if(!typeof cmd.help.maxArgs == "number") throw new TypeError(`Command at ${dir} exports an invalid maxArgs value.`);
-                        
+
                         if(!cmd.help.minArgs) cmd.help.minArgs = 0;
-                        if(!cmd.help.maxArgs) cmd.help.maxArgs = -1
+                        if(!cmd.help.maxArgs || cmd.help.maxArgs < 0) cmd.help.maxArgs = -1
                         
-                        if(cmd.help.minArgs > cmd.help.maxArgs) {
-                            if(cmd.help.maxArgs == -1) return;
-                            else throw new TypeError(`Command at ${dir} minimally requires more arguments than maximum arguments allowed!`);
-                        }
+                        if(cmd.help.minArgs > cmd.help.maxArgs && cmd.help.maxArgs !== -1) throw new TypeError(`Command at ${dir} minimally requires more arguments than maximally allowed.`);
                         
+
                         client.commands.set(cmd.help.name, cmd); // Add the command to the collection of commands defined at index.js:5:1
                         console.log(`Loaded command "${cmd.help.name}"`);
                     }
@@ -102,5 +99,5 @@ module.exports = (client) => {
     }
     catch(e) {
         throw e // If an error is encountered, throw it
-    }
-}
+    };
+};
