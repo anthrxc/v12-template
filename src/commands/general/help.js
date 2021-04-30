@@ -36,8 +36,8 @@ module.exports.run = async(client, message, args) => {
                     .setFooter(footer)
                 );
                 return;
-            };
-            if(categories.includes(args[0])) { // If the provided category is valid
+            }
+            else { // If the provided category is valid
                 dir = `${dir}${sep}${args[0]}`;
                 
                 const help = new MessageEmbed()
@@ -49,7 +49,14 @@ module.exports.run = async(client, message, args) => {
                 const commands = readdirSync(dir).filter(f => f.endsWith(".js")); // ignore non-js files
                 commands.forEach(command => {
                     const cmd = require(`${dir}${sep}${command}`); // require the command file
-                    help.addField(cmd.help.name, `*${cmd.help.description}*\n**Aliases:** ${cmd.help.aliases ? undefined : "None"}\n**Owner Only:** ${cmd.help.ownerOnly}`);
+                    
+                    let maxArgs;
+                    if(cmd.help.maxArgs) {
+                        if(cmd.help.maxArgs == -1) maxArgs = "Unlimited";
+                        else maxArgs = cmd.help.maxArgs
+                    }
+
+                    help.addField(cmd.help.name, `*${cmd.help.description}*\n\n**Usage:** ${prefix}${cmd.help.name} ${cmd.help.usage}\n**Aliases:** ${cmd.help.aliases ? cmd.help.aliases.join(", ") : "None"}\n**Owner Only:** ${cmd.help.ownerOnly}\n**Minimum Arguments:** ${cmd.help.minArgs}\n**Maximum Arguments:** ${maxArgs}`, true);
                 });
                 channel.send(help);
             };
@@ -60,5 +67,6 @@ module.exports.run = async(client, message, args) => {
 module.exports.help = {
     name: "help",
     description: "Shows you a list of commands and information about them.",
-    usage: "[category]"
+    usage: "[category]",
+    maxArgs: 1
 };

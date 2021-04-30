@@ -74,7 +74,7 @@ module.exports = async(client, message) => {
         );
         return; // don't continue with the rest of the code
     }
-    if(maxArgs && maxArgs !== -1) {
+    if(args.length > maxArgs && maxArgs !== -1) {
         channel.send(
             new MessageEmbed()
             .setColor(color.negative)
