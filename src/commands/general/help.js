@@ -37,7 +37,7 @@ module.exports.run = async(client, message, args) => {
                 );
                 return;
             };
-            if(categories.includes(args[0])) {
+            if(categories.includes(args[0])) { // If the provided category is valid
                 dir = `${dir}${sep}${args[0]}`;
                 
                 const help = new MessageEmbed()
@@ -61,4 +61,6 @@ module.exports.help = {
     name: "help",
     description: "Shows you a list of commands and information about them.",
     usage: "[category]",
+    minArgs: 1,
+    maxArgs: 3
 };
