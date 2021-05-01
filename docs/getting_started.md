@@ -33,5 +33,5 @@ The bot currently mentions my GitHub profile, so if you'd like to change that, f
 
 ## Creating your first command/event
 You're now ready to start making commands and events!
-To see how to make a command, follow [these instructions](https://github/aanthr0/discordjs-template-bot/docs/making_a_command.md).
-Alternatively, you can follow [these instructions](https://github/aanthr0/discordjs-template-bot/docs/making_an_event.md) to see how to make events.
+To see how to make a command, follow [these instructions](https://github.com/aanthr0/discordjs-template-bot/docs/making_a_command.md).
+Alternatively, you can follow [these instructions](https://github.com/aanthr0/discordjs-template-bot/docs/making_an_event.md) to see how to make events.

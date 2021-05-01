@@ -33,4 +33,4 @@ module.exports.help = {
 
 ## Other
 You've successfully created a command! If you come across a bug, feel free to open an issue or pull request (for issues with your code, do **not** open pull requests).
-To see how to make events, follow [these instructions](https://github/aanthr0/discordjs-template-bot/docs/making_an_event.md).
+To see how to make events, follow [these instructions](https://github.com/aanthr0/discordjs-template-bot/docs/making_an_event.md).
