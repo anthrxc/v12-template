@@ -25,7 +25,7 @@ If you want to use *.env* files to store your token, follow these steps:
 ## Running the bot
 The bot is now ready to run!
 To start up the bot, simply type `npm start` in the console.
-You can also type `npm test` to run the bot with [nodemon](https://www.npmjs.com/package/nodemon).s
+You can also type `npm test` to run the bot with [nodemon](https://www.npmjs.com/package/nodemon).
 
 ## Bot Mentions
 In the message event (*src/events/message.js*), whenever someone mentions the bot, it sends a "Hello" message reminding users of the bot prefix.
