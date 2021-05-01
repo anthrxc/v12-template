@@ -84,7 +84,7 @@ module.exports = (client) => {
                         if(!typeof cmd.help.maxArgs == "number") throw new TypeError(`Command at ${dir} exports an invalid maxArgs value.`);
 
                         if(!cmd.help.minArgs) cmd.help.minArgs = 0;
-                        if(!cmd.help.maxArgs || cmd.help.maxArgs < 0) cmd.help.maxArgs = -1
+                        if(cmd.help.maxArgs === undefined || cmd.help.maxArgs < 0) cmd.help.maxArgs = -1
                         
                         if(cmd.help.minArgs > cmd.help.maxArgs && cmd.help.maxArgs !== -1) throw new TypeError(`Command at ${dir} minimally requires more arguments than maximally allowed.`);
                         
