@@ -58,18 +58,19 @@ module.exports = async(client, message) => {
             };
         };
     };
-    const reqArgs = () => {
-        if(minArgs === maxArgs) return `This command requires ${minArgs} arguments!`; // If the minimum and maximum arguments are equal, say that the command requires x arguments -- no more, no less
-        if(minArgs > 0 && maxArgs == -1) return `This command requires at least ${minArgs} arguments!` // If the minimum arguments are at least 1 and there are infinite maximum arguments, say that the command requires no less than x arguments
-        if(minArgs !== maxArgs) return `This command requires ${minArgs}-${maxArgs} arguments!`
-    };
+
+    let reqArgs;
+    if(minArgs === maxArgs) reqArgs = `This command requires ${minArgs} arguments!`; // If the minimum and maximum arguments are equal, say that the command requires x arguments -- no more, no less
+    if(minArgs > 0 && maxArgs == -1) reqArgs = `This command requires at least ${minArgs} arguments!` // If the minimum arguments are at least 1 and there are infinite maximum arguments, say that the command requires no less than x arguments
+    if(minArgs !== maxArgs) reqArgs = `This command requires ${minArgs}-${maxArgs} arguments!`
+
     if(args.length < minArgs) {
         channel.send(
             new MessageEmbed()
             .setColor(color.negative)
             .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
             .setTitle(`${emoji.negative} Error!`)
-            .addField("Not Enough Arguments!", `${reqArgs()}\n*Usage: ${prefix}${name} ${usage}*`)
+            .addField("Not Enough Arguments!", `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`)
             .setFooter(footer)
         );
         return; // don't continue with the rest of the code
@@ -80,7 +81,7 @@ module.exports = async(client, message) => {
             .setColor(color.negative)
             .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
             .setTitle(`${emoji.negative} Error!`)
-            .addField("Too Many Arguments!", `${reqArgs()}\n*Usage: ${prefix}${name} ${usage}*`)
+            .addField("Too Many Arguments!", `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`)
             .setFooter(footer)
         );
         return; // don't continue with the rest of the code

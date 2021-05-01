@@ -36,32 +36,29 @@ module.exports.run = async(client, message, args) => {
                     .setFooter(footer)
                 );
                 return;
-            }
-            else { // If the provided category is valid
-                dir = `${dir}${sep}${args[0]}`;
-                
-                const help = new MessageEmbed()
-                    .setColor(color.positive)
-                    .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
-                    .setTitle(`${emoji.positive} Help - ${args[0].toLocaleUpperCase()}`)
-                    .setFooter(footer);
-
-                const commands = readdirSync(dir).filter(f => f.endsWith(".js")); // ignore non-js files
-                commands.forEach(command => {
-                    const cmd = require(`${dir}${sep}${command}`); // require the command file
-                    
-                    let maxArgs;
-                    if(cmd.help.maxArgs) {
-                        if(cmd.help.maxArgs == -1) maxArgs = "Unlimited";
-                        else maxArgs = cmd.help.maxArgs
-                    }
-
-                    help.addField(cmd.help.name, `*${cmd.help.description}*\n\n**Usage:** ${prefix}${cmd.help.name} ${cmd.help.usage}\n**Aliases:** ${cmd.help.aliases ? cmd.help.aliases.join(", ") : "None"}\n**Owner Only:** ${cmd.help.ownerOnly}\n**Minimum Arguments:** ${cmd.help.minArgs}\n**Maximum Arguments:** ${maxArgs}`, true);
-                });
-                channel.send(help);
             };
+
+            dir = `${dir}${sep}${args[0]}`;
+                
+            const help = new MessageEmbed()
+                .setColor(color.positive)
+                .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
+                .setTitle(`${emoji.positive} Help - ${args[0].toLocaleUpperCase()}`)
+                .setFooter(footer);
+
+            const commands = readdirSync(dir).filter(f => f.endsWith(".js")); // ignore non-js files
+            commands.forEach(command => {
+                const cmd = require(`${dir}${sep}${command}`); // require the command file
+                    
+                let maxArgs;
+                if(cmd.help.maxArgs === -1) maxArgs = "Unlimited"; // If the maximum number of arguments is -1 (unlimited), show the user "Unlimited" 
+                else maxArgs = cmd.help.maxArgs; // If it isn't, show them the number of arguments
+
+                help.addField(cmd.help.name, `*${cmd.help.description}*\n\n**Usage:** ${prefix}${cmd.help.name} ${cmd.help.usage}\n**Aliases:** ${cmd.help.aliases ? cmd.help.aliases.join(", ") : "None"}\n**Owner Only:** ${cmd.help.ownerOnly}\n**Minimum Arguments:** ${cmd.help.minArgs}\n**Maximum Arguments:** ${maxArgs}`, true);
+            });
+            channel.send(help);
         };
-    }, 1);
+    }, 10);
 };
 
 module.exports.help = {
