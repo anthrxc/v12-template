@@ -1,10 +1,8 @@
-const { version } = require("../../package.json");
-
-module.exports = () => {
+module.exports = (client) => {
     console.clear(); // Does what you think it does; clears the console
     
     console.log(`-----------------------`);
-    console.log(`DJS Template Bot v${version}`);
+    console.log(`${client.user.username}`);
     console.log(`Logged into Discord and ready to use!`);
     console.log(`-----------------------`);
     
