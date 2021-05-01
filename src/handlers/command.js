@@ -16,6 +16,8 @@ module.exports = (client) => {
                     dir = `${dir}${sep}${command}`
                     const cmd = require(`${process.cwd()}/src/commands/${subDir}/${command}`); // Require the command file
 
+                    if(!cmd.run) throw new TypeError(`Command at ${dir} does not export a run function.`);
+                    
                     if(cmd.help) { // Check if the command file exports a help object
                         if(!cmd.help.name) throw new TypeError(`Command at ${dir} does not export a name value.`);                                                               // These lines simply check
                         if(!typeof cmd.help.name == "string") throw new TypeError(`Command at ${dir} exports an invalid name value, it can only be a string.`);                  // if the help object exports any
