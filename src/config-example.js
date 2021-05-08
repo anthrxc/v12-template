@@ -1,5 +1,9 @@
 module.exports = {
     owners: ["ALL", "OWNER", "IDs", "HERE"],
+    database: {
+        type: "DATABASE-TYPE-HERE", // can be one of quickdb, mongodb
+        uri: "DATABASE://URI:HERE" // if you use quick.db, delete this line
+    },
     token: "BOT-TOKEN-HERE",
     prefix: "PREFIX-HERE",
     color: {
@@ -11,4 +15,4 @@ module.exports = {
         negative: ":red_circle:" // which you can get by typing "\:emojiName:"
     },
     footer: "EMBED-FOOTER"
-}
+};

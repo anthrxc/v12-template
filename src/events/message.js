@@ -87,5 +87,5 @@ module.exports = async(client, message) => {
         return; // don't continue with the rest of the code
     };
 
-    if(command) command.run(client, message, args); // If the command exists, run it
+    if(command) command.run(client, message, args, database); // If the command exists, run it
 };
