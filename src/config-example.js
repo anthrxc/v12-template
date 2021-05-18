@@ -5,7 +5,6 @@ module.exports = {
         uri: "DATABASE://URI:HERE" // if you use quick.db, delete this line
     },
     token: "BOT-TOKEN-HERE",
-    mongoose_uri: "YOUR-MONGOOSE-URI-STRING",
     prefix: "PREFIX-HERE",
     color: {
         positive: "GREEN", // #2ECC71
