@@ -30,7 +30,7 @@ module.exports = async(client, message) => {
     if(client.commands.has(cmd)) command = client.commands.get(cmd); // If the command exists, put that command inside the command variable (defined ln10 col5)
     else if(client.aliases.has(cmd)) command = client.commands.get(client.aliases.get(cmd)) // If the command doesn't exist, check if it's an alias. If it is, put it inside the command variable.
 
-    const { name, ownerOnly, requiredPerms, minArgs, maxArgs, usage } = command.help
+    const { name, ownerOnly, requiredPerms, requiredRoles, minArgs, maxArgs, usage } = command.help
 
     if(ownerOnly == true && !owners.includes(author.id)) {
         channel.send(
@@ -42,7 +42,7 @@ module.exports = async(client, message) => {
             .setFooter(footer)
         );
         return; // don't continue with the rest of the code
-    }
+    };
     if(requiredPerms && requiredPerms.length) { // if there are required permissions
         for(perm of command.help.requiredPerms) { // loop through the permissions
             if(!member.hasPermission(perm)) { // If the member doesn't have any of the required permissions, send an error
@@ -58,7 +58,24 @@ module.exports = async(client, message) => {
             };
         };
     };
+    if(requiredRoles && requiredRoles.length) {
+        for(const role of requiredRoles) {
+            const req = guild.roles.cache.get(role); // Get the required role from cache
 
+            if(!member.roles.cache.get(req)) { // If the member does not have EITHER of the required roles, send an error embed.
+                channel.send(
+                    new MessageEmbed()
+                    .setColor(color.negative)
+                    .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
+                    .setTitle(`${emoji.negative} Error!`)
+                    .addField("Invalid roles", `You need to have the \`${req.name}\` role to run this command!`)
+                    .setFooter(footer)
+                );
+                return;
+            };
+        };
+    };
+    
     let reqArgs;
     if(minArgs === maxArgs) reqArgs = `This command requires ${minArgs} arguments!`; // If the minimum and maximum arguments are equal, say that the command requires x arguments -- no more, no less
     if(minArgs > 0 && maxArgs == -1) reqArgs = `This command requires at least ${minArgs} arguments!` // If the minimum arguments are at least 1 and there are infinite maximum arguments, say that the command requires no less than x arguments
@@ -87,5 +104,5 @@ module.exports = async(client, message) => {
         return; // don't continue with the rest of the code
     };
 
-    if(command) command.run(client, message, args); // If the command exists, run it
+    if(command) command.run(client, message, args, client.database); // If the command exists, run it
 };

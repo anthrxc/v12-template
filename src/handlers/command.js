@@ -36,7 +36,8 @@ module.exports = (client) => {
                             }
                             else throw new TypeError(`Command at ${dir} exports an invalid alias value. Value must be a string or object.`); // If the type of the alias value isn't a string or an object, throw an error
                         };
-                        if(cmd.help.ownerOnly == true && cmd.help.requiredPerms) throw new TypeError(`Command at ${dir} has a setting conflict: ownerOnly and requiredPerms cannot be used together.`); // Owners already have full permission over the bot, if a command is "ownerOnly", it shouldn't require any additional permissions
+                        if(cmd.help.ownerOnly && cmd.help.requiredPerms) throw new TypeError(`Command at ${dir} has a setting conflict: ownerOnly and requiredPerms cannot be used together.`); // Owners already have full permission over the bot, if a command is "ownerOnly", it shouldn't require any additional permissions
+                        if(cmd.help.requiredPerms && cmd.help.requiredRoles) throw new TypeError(`Command at ${dir} has a setting conflict: requiredRoles and requiredPerms cannot be used together.`); // Because of role/perm conflict (a command might require a certain role and permission, but that role does not have the required permission), using these two settings together is disabled.
                         if(!typeof cmd.help.ownerOnly == "boolean") throw new TypeError(`Command at ${dir} uses an invalid value for the ownerOnly setting.`); // the ownerOnly setting can only be a boolean -- true or false
                         if(!cmd.help.ownerOnly) cmd.help.ownerOnly = false;
                         if(cmd.help.requiredPerms) {

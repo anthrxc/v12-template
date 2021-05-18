@@ -24,7 +24,10 @@ The help export uses the following code:
 module.exports.help = {
     name: "commandName", // required - defines what users will type in to use the command
     description: "An example command", // required - a brief description of what the command does
-    aliases: "cmd", // optional - aliases for the command, for multiple aliases, use an array
+    aliases: "cmd" || ["cmd1", "cmd2", "cmd3"], // optional - aliases for the command, for multiple aliases, use an array
+    requiredPerms: "PERMISSION" || ["PERMISSION1", "PERMISSION2", "PERMISSION3"],   // These are all optional, and by default are none, none and false, respectively
+    requiredRoles: "ROLE_ID" || ["ROLE1_ID", "ROLE2_ID", "ROLE3_ID"],               // They cannot be used together because of conflict
+    ownerOnly: true || false,                                                       // Misusing commands with these settings proves you're a fucking idiot
     usage: "<required argument> [optional argument]", // optional - shows users how to use the command in the help command and when they have an incorrect number of arguments
     minArgs: 1, // optional - defines the minimum number of arguments users need to provide when using the command | default: 0
     maxArgs: 2 // optional - defines the maximum number of argument users need to provide when using the command, for infinite set the number to -1 | default: -1

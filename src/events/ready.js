@@ -1,5 +1,5 @@
-module.exports = (client) => {
-    console.clear(); // Does what you think it does; clears the console
+module.exports = async (client) => {
+    console.clear();
     
     console.log(`-----------------------`);
     console.log(`${client.user.username}`);
@@ -7,6 +7,6 @@ module.exports = (client) => {
     console.log(`-----------------------`);
     
     setTimeout(() => {
-        console.clear(); // Clears the console after 1.5 seconds (1500 miliseconds)
+        console.clear();
     }, 1500);
 };
