@@ -8,7 +8,10 @@ require("./handlers/command.js")(client); // require the handlers and provide th
 require("./handlers/event.js")(client);
 
 if(client.config.database) {
-    if(client.config.database.type.toLowerCase() === "quickdb") client.database = require("quick.db"); // If the database type is quick.db, then require it
+    if(client.config.database.type.toLowerCase() === "quickdb") {
+        client.database = require("quick.db"); // If the database type is quick.db, then require it
+        console.log("Successfully enabled quick.db!");
+    }
     else if(client.config.database.type.toLowerCase() === "mongodb") { // If the database type is mongodb, connect to the database
         const mongoose = require("mongoose");
         mongoose.connect(client.config.database.uri, {
@@ -16,6 +19,7 @@ if(client.config.database) {
             useUnifiedTopology: true
         });
         client.database == mongoose;
+        console.log("Sucessfully enabled MongoDB!");
     };
 };
 
