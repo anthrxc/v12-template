@@ -9,7 +9,7 @@ require("./handlers/event.js")(client);
 
 if(client.config.database) {
     if(client.config.database.type.toLowerCase() === "quickdb") client.database = require("quick.db"); // If the database type is quick.db, then require it
-    else if(client.config.databse.type.toLowerCase() === "mongodb") { // If the database type is mongodb, connect to the database
+    else if(client.config.database.type.toLowerCase() === "mongodb") { // If the database type is mongodb, connect to the database
         const mongoose = require("mongoose");
         mongoose.connect(client.config.database.uri, {
             useNewUrlParser: true,
