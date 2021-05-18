@@ -8,7 +8,7 @@ client.config = require("./config.js"); // Make all variables in the config.js f
 require("./handlers/command.js")(client); // require the handler and provide the client variable
 require("./handlers/event.js")(client);
 
-mongoose.connect(client.config.mongoose_uri, {
+mongoose.connect(client.config.database.uri, { // Connect to the database
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
