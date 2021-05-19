@@ -9,7 +9,8 @@ Fortunately, creating it is simple!
 
 Just use the following code:
 ```javascript
-module.exports.run = async(client, message, args) => {
+// If a database connection is present, you can provide the database argument after "args"
+module.exports.run = async(client, message, args, database) => {
     // your code here
 };
 ```
