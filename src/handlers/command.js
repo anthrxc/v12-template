@@ -27,14 +27,16 @@ module.exports = (client) => {
                         if(client.commands.get(cmd.help.name)) throw new TypeError(`Command at ${dir} exports the same name value as another command.`);
                         
                         if(cmd.help.aliases) {
-                            if(typeof cmd.help.aliases == "string") cmd.help.aliases = [cmd.help.aliases] // If the exported alias is a string, convert it to an array with the only element being that string
-                            else if(typeof cmd.help.aliases == "object") {
-                                cmd.help.aliases.forEach(alias => { // Loop through all aliases and see if another command already has that alias
-                                    if(client.aliases.get(alias)) throw new TypeError(`Command at ${dir} exports the same alias value as another command.`);
-                                    client.aliases.set(alias, cmd.help.name); // if not, add the alias to the collection of aliases defined at index.js:5:1
-                                });
-                            }
-                            else throw new TypeError(`Command at ${dir} exports an invalid alias value. Value must be a string or object.`); // If the type of the alias value isn't a string or an object, throw an error
+                            if(!typeof cmd.help.aliases === "string" || !typeof cmd.help.aliases === "object") throw new TypeError(`Command at ${dir} exports an invalid alias value. Value must be a string or object.`);
+                            
+                            let aliases;
+                            if(typeof cmd.help.aliases == "string") aliases = [cmd.help.aliases]; // Add the alias to the "aliases" variable as an array element
+                            else if(typeof cmd.help.aliases == "object") aliases = cmd.help.aliases // Add the aliases to the "aliases" variable as array elements
+
+                            aliases.forEach(alias => { // Loop through all aliases and see if another command already has that alias
+                                if(client.aliases.get(alias)) throw new TypeError(`Command at ${dir} exports the same alias value as another command.`);
+                                client.aliases.set(alias, cmd.help.name); // if not, add the alias to the collection of aliases defined at index.js:5:1
+                            });
                         };
                         if(cmd.help.ownerOnly && cmd.help.requiredPerms) throw new TypeError(`Command at ${dir} has a setting conflict: ownerOnly and requiredPerms cannot be used together.`); // Owners already have full permission over the bot, if a command is "ownerOnly", it shouldn't require any additional permissions
                         if(cmd.help.requiredPerms && cmd.help.requiredRoles) throw new TypeError(`Command at ${dir} has a setting conflict: requiredRoles and requiredPerms cannot be used together.`); // Because of role/perm conflict (a command might require a certain role and permission, but that role does not have the required permission), using these two settings together is disabled.
