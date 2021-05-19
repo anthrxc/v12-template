@@ -71,15 +71,31 @@ module.exports = async(client, message) => {
                     .addField("Invalid roles", `You need to have the \`${req.name}\` role to run this command!`)
                     .setFooter(footer)
                 );
-                return;
+                return; // Don't continue with the rest of the code
             };
         };
     };
+    let _maxArgs;
     
+    if(maxArgs === -1) _maxArgs = "Unlimited";
+    else _maxArgs = maxArgs;
+
     let reqArgs;
-    if(minArgs === maxArgs) reqArgs = `This command requires ${minArgs} arguments!`; // If the minimum and maximum arguments are equal, say that the command requires x arguments -- no more, no less
-    if(minArgs > 0 && maxArgs == -1) reqArgs = `This command requires at least ${minArgs} arguments!` // If the minimum arguments are at least 1 and there are infinite maximum arguments, say that the command requires no less than x arguments
-    if(minArgs !== maxArgs) reqArgs = `This command requires ${minArgs}-${maxArgs} arguments!`
+    if(minArgs === maxArgs) { // If the minimum and maximum arguments are equal, say that the command requires x arguments -- no more, no less
+        if(minArgs === 0) reqArgs = `This command doesn't require any arguments.`
+        else if(minArgs === 1) reqArgs = `This command requires \`${minArgs}\` argument.`
+        else reqArgs = `This command requires \`${minArgs}\` arguments.`
+    }
+    else if(_maxArgs === "Unlimited") {
+        if(minArgs === 0) return;
+        else if(minArgs === 1) reqArgs = `This command requires at least \`${minArgs}\` argument.`
+        else reqArgs = `This command requires at least \`${minArgs}\` arguments!`; // If the minimum arguments are at least 1 and there are infinite maximum arguments, say that the command requires no less than x arguments
+    }
+    else if(minArgs !== maxArgs && _maxArgs !== "Unlimited") {
+        if(maxArgs === -1) reqArgs = `This command requires \`${minArgs}-${maxArgs}\` argument!`;
+        else reqArgs = `This command requires \`${minArgs}-${maxArgs}\` arguments!`;
+    }
+    let _usage = `${prefix}${name} ${usage ? usage : ""}`;
 
     if(args.length < minArgs) {
         channel.send(
@@ -87,7 +103,7 @@ module.exports = async(client, message) => {
             .setColor(color.negative)
             .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
             .setTitle(`${emoji.negative} Error!`)
-            .addField("Not Enough Arguments!", `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`)
+            .addField("Not Enough Arguments!", `${reqArgs}\n*Usage: ${_usage.trim()}*`)
             .setFooter(footer)
         );
         return; // don't continue with the rest of the code
@@ -98,7 +114,7 @@ module.exports = async(client, message) => {
             .setColor(color.negative)
             .setAuthor(author.tag, author.displayAvatarURL({ format: "png", dynamic: true, size: 1024 }))
             .setTitle(`${emoji.negative} Error!`)
-            .addField("Too Many Arguments!", `${reqArgs}\n*Usage: ${prefix}${name} ${usage}*`)
+            .addField("Too Many Arguments!", `${reqArgs}\n*Usage: ${_usage.trim()}*`)
             .setFooter(footer)
         );
         return; // don't continue with the rest of the code
