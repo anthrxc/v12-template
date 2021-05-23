@@ -43,7 +43,7 @@ module.exports = (client) => {
                         if(cmd.help.requiredRoles) {
                             if(typeof cmd.help.requiredRoles === "string") cmd.help.requiredRoles = [cmd.help.requiredRoles];
                             else if(typeof cmd.help.requiredRoles === "object") cmd.help.requiredRoles = cmd.help.requiredRoles;
-                            else throw new TypeError(`Command at ${dir} exports an invalid type of the requiredRoles setting. Type can only be string or object.`)
+                            else throw new TypeError(`Command at ${dir} exports an invalid requiredRoles value. Value must be a string or object.`)
                         };
                         if(!typeof cmd.help.ownerOnly == "boolean") throw new TypeError(`Command at ${dir} uses an invalid value for the ownerOnly setting.`); // the ownerOnly setting can only be a boolean -- true or false
                         if(!cmd.help.ownerOnly) cmd.help.ownerOnly = false;
