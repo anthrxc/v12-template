@@ -62,7 +62,7 @@ module.exports = async(client, message) => {
         for(const role of requiredRoles) {
             const req = guild.roles.cache.get(role); // Get the required role from cache
 
-            if(!member.roles.cache.get(req)) { // If the member does not have EITHER of the required roles, send an error embed.
+            if(!member.roles.cache.get(req.id)) { // If the member does not have EITHER of the required roles, send an error embed.
                 channel.send(
                     new MessageEmbed()
                     .setColor(color.negative)
