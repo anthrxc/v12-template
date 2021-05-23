@@ -40,10 +40,15 @@ module.exports = (client) => {
                         };
                         if(cmd.help.ownerOnly && cmd.help.requiredPerms) throw new TypeError(`Command at ${dir} has a setting conflict: ownerOnly and requiredPerms cannot be used together.`); // Owners already have full permission over the bot, if a command is "ownerOnly", it shouldn't require any additional permissions
                         if(cmd.help.requiredPerms && cmd.help.requiredRoles) throw new TypeError(`Command at ${dir} has a setting conflict: requiredRoles and requiredPerms cannot be used together.`); // Because of role/perm conflict (a command might require a certain role and permission, but that role does not have the required permission), using these two settings together is disabled.
+                        if(cmd.help.requiredRoles) {
+                            if(typeof cmd.help.requiredRoles === "string") cmd.help.requiredRoles = [cmd.help.requiredRoles];
+                            else if(typeof cmd.help.requiredRoles === "object") cmd.help.requiredRoles = cmd.help.requiredRoles;
+                            else throw new TypeError(`Command at ${dir} exports an invalid requiredRoles value. Value must be a string or object.`)
+                        };
                         if(!typeof cmd.help.ownerOnly == "boolean") throw new TypeError(`Command at ${dir} uses an invalid value for the ownerOnly setting.`); // the ownerOnly setting can only be a boolean -- true or false
                         if(!cmd.help.ownerOnly) cmd.help.ownerOnly = false;
                         if(cmd.help.requiredPerms) {
-                            if(typeof cmd.help.requiredPerms == "string") cmd.help.requiredPerms = [cmd.help.requiredPerms] // read line 29 -- instead of aliases, this is done to required permissions
+                            if(typeof cmd.help.requiredPerms == "string") cmd.help.requiredPerms = [cmd.help.requiredPerms]; // read line 33 -- instead of aliases, this is done to required permissions
                             else if(typeof cmd.help.requiredPerms == "object") {
                                 cmd.help.requiredPerms.forEach(permission => {
                                     const permissions = [
