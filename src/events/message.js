@@ -24,8 +24,8 @@ module.exports = async(client, message) => {
     if(!content.startsWith(prefix) || !guild || !cmd) return; // If the message content doesn't start with a prefix OR has no guild OR there is no command, ignore the message.
     if(!member) member = await guild.fetchMember(author); // If the message member (message author as a GuildMember) doesn't exist (isn't in cache), fetch the member (which automatically caches it)
 
-    if(cmd.indexOf("\n")) cmd = cmd.split("\n").join(""); // if there is a new line in the command, split the command on that and select the first value in the list
-    if(cmd.indexOf("​")) cmd = cmd.split("​").join(""); // if there is a zero-width space in the command, split the command on that and select the first value in the list
+    if(cmd.indexOf("\n")) cmd = cmd.split("\n").join("")[0]; // if there is a new line in the command, split the command on that and select the first value in the list
+    if(cmd.indexOf("​")) cmd = cmd.split("​").join("")[0]; // if there is a zero-width space in the command, split the command on that and select the first value in the list
     
     if(client.commands.has(cmd)) command = client.commands.get(cmd); // If the command exists, put that command inside the command variable (defined ln10 col5)
     else if(client.aliases.has(cmd)) command = client.commands.get(client.aliases.get(cmd)) // If the command doesn't exist, check if it's an alias. If it is, put it inside the command variable.
