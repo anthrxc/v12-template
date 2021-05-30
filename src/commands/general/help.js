@@ -53,7 +53,9 @@ module.exports.run = async(client, message, args) => {
                 let maxArgs;
                 if(cmd.help.maxArgs === -1) maxArgs = "Unlimited"; // If the maximum number of arguments is -1 (unlimited), show the user "Unlimited" 
                 else maxArgs = cmd.help.maxArgs; // If it isn't, show them the number of arguments
-
+                if(typeof cmd.help.aliases === "string") cmd.help.aliases = [cmd.help.aliases];
+                else;
+                
                 help.addField(cmd.help.name, `*${cmd.help.description}*\n\n**Usage:** ${prefix}${cmd.help.name} ${cmd.help.usage}\n**Aliases:** ${cmd.help.aliases ? cmd.help.aliases.join(", ") : "None"}\n**Owner Only:** ${cmd.help.ownerOnly}\n**Minimum Arguments:** ${cmd.help.minArgs}\n**Maximum Arguments:** ${maxArgs}`, true);
             });
             channel.send(help);
