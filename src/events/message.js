@@ -30,6 +30,7 @@ module.exports = async(client, message) => {
     if(client.commands.has(cmd)) command = client.commands.get(cmd); // If the command exists, put that command inside the command variable (defined ln10 col5)
     else if(client.aliases.has(cmd)) command = client.commands.get(client.aliases.get(cmd)) // If the command doesn't exist, check if it's an alias. If it is, put it inside the command variable.
     
+    if(!command) return;
     const { name, ownerOnly, requiredPerms, requiredRoles, minArgs, maxArgs, usage } = command.help
 
     if(ownerOnly == true && !owners.includes(author.id)) {
